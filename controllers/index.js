@@ -1,6 +1,11 @@
 module.exports = {
 	index(req, res, next) {
-		res.render('index', {site: 'dashboard'});
+		if (req.isAuthenticated()) {
+			res.render('index', {site: 'dashboard', title: 'Jhon Nieves'});
+		}
+		else {
+			res.render('landing', {title: 'Jhon Nieves'});
+		}
 	},
 	signin(req, res, next) {
 		//TODO

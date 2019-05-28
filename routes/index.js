@@ -9,5 +9,4 @@ app.post('/signin', signin);
 // USER SIGN OUT POST
 app.get('/signout', signout);
 //
-//
 module.exports = app;
