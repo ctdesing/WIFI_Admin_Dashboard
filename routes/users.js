@@ -1,9 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express'),
+			app = express.Router(),
+			{ register, create, profile, edit, update, destroy } = require('../controllers/user');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// NEW FORM
+app.get('/new', register);
+// CREATE POST
+app.post('/', create);
+// SHOW GET
+app.get('/:username', profile);
+// EDIT GET
+app.get('/:id/edit', edit);
+ // UPDATE PUT
+app.put('/:id', update);
+// DESTROY DELETE
+app.delete('/:id', destroy);
 
-module.exports = router;
+module.exports = app;

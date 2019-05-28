@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express'),
+			app = express.Router(),
+			{ index, signin, signout } = require('../controllers/index');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('dashboard', {});
-});
-
-module.exports = router;
+// LANDING INDEX GET
+app.get('/', index);
+// USER SIGN IN POST
+app.post('/signin', signin);
+// USER SIGN OUT POST
+app.get('/signout', signout);
+//
+//
+module.exports = app;
