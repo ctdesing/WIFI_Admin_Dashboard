@@ -1,9 +1,15 @@
 const express = require('express'),
 			app = express.Router(),
-			{ register, create, profile, edit, update, destroy } = require('../controllers/user');
+			{ index, create, profile, edit, update, destroy } = require('../controllers/user');
 
-// NEW FORM
-app.get('/new', register);
+// PROFILE
+app.get('/', index);
+// NEW -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- 
+app.get('/new', (req, res, next) => {
+	res.render('register', {title: 'Jhon Nieves'});
+});
+// -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- 
+//
 // CREATE POST
 app.post('/', create);
 // SHOW GET

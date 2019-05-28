@@ -32,10 +32,11 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(session({
   secret: 'ZmH=WRpqWLBPb=C7!BJ8!WJ23FFS$u5Kcahe3yN-E=k8T8dy',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: true
 }));
 // PASSPORT CONFIG
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -44,6 +45,10 @@ mongoose.connect("mongodb://localhost:27017/dashboard", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
+});
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
 });
 // ****************************************************
 // ROUTES

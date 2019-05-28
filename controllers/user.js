@@ -1,9 +1,22 @@
+const User = require('../models/user');
+
 module.exports = {
-	register(req, res, next) {
-		//TODO
+	index(req, res, next) {
+
 	},
 	create(req, res, next) {
-		//TODO
+		const newUser = new User({
+			username: req.body.username,
+			email: req.body.username
+		});
+		User.register(newUser, req.body.password, (err, user) => {
+		  if (err) {
+		    next(err);
+		  }
+		  else {
+		  	res.redirect('/');
+		  }
+		});
 	},
 	profile(req, res, next) {
 		//TODO
