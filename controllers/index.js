@@ -1,6 +1,6 @@
 module.exports = {
 	index(req, res, next) {
-		res.render('index', {});
+		res.render('index', {site: 'dashboard'});
 	},
 	signin(req, res, next) {
 		//TODO
