@@ -11,6 +11,7 @@ module.exports = {
 		res.redirect('/');
 	},
 	signout(req, res, next) {
-		//TODO
+		req.logout();
+		res.redirect('/');
 	}
 };
