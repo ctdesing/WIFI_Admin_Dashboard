@@ -8,7 +8,7 @@ module.exports = {
 		}
 	},
 	signin(req, res, next) {
-		//TODO
+		res.redirect('/');
 	},
 	signout(req, res, next) {
 		//TODO
