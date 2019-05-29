@@ -52,6 +52,19 @@ mongoose.connect("mongodb://localhost:27017/dashboard", {
   useFindAndModify: false,
   useCreateIndex: true
 });
+//DATABASE CONNECTION MYSQL
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'jancx',
+  password : 'PcodeServ001@@D@t@'
+});
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+  }
+  else
+    console.log('connected as id ' + connection.threadId);
+});
 // ****************************************************
 // ROUTES
 //
