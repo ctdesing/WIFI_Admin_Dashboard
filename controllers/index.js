@@ -1,6 +1,14 @@
 module.exports = {
 	index(req, res, next) {
 		if (req.isAuthenticated()) {
+			var q = "SELECT COUNT(*) FROM users";
+  			connection.query(q, function(err, results){
+				if (err) throw err;
+    			console.log(results);
+    			var count = results[0].count;
+    			res.send("We have " + count + "users in our db");
+			});
+
 			res.render('index', {site: 'dashboard', title: 'Jhon Nieves'});
 		}
 		else {
