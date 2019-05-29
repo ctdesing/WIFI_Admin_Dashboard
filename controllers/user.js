@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 module.exports = {
 	index(req, res, next) {
-
+		res.render('index', {site: 'users', title: 'Jhon Nieves'});
 	},
 	create(req, res, next) {
 		const newUser = new User({

@@ -46,6 +46,7 @@ mongoose.connect("mongodb://localhost:27017/dashboard", {
   useFindAndModify: false,
   useCreateIndex: true
 });
+// GLOBAL VARIABLES
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();

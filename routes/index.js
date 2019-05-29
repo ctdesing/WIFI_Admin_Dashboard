@@ -5,6 +5,7 @@ const express = require('express'),
 
 // LANDING INDEX GET
 app.get('/', index);
+//**********************************************************
 // USER SIGN IN POST
 app.post('/signin', passport.authenticate('local'), signin);
 // USER SIGN OUT POST

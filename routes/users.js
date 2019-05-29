@@ -1,9 +1,10 @@
 const express = require('express'),
 			app = express.Router(),
+			{ userAuth } = require('../middleware/index'),
 			{ index, create, profile, edit, update, destroy } = require('../controllers/user');
 
-// PROFILE
-app.get('/', index);
+// USERS SECTION
+app.get('/', userAuth, index);
 // NEW -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- 
 app.get('/new', (req, res, next) => {
 	res.render('register', {title: 'Jhon Nieves'});
