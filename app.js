@@ -12,7 +12,7 @@ const createError = require('http-errors'),
 			passport = require('passport'),
 			mysql = require('mysql'),
       mongoose = require('mongoose'),
-			session = require('express-session');
+			session = require('express-session'),
 			app = express();
 // MODELS - MongoDB
 const User = require('./models/user');
@@ -41,20 +41,17 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// GLOBAL VARIABLES
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 // DATABASE CONNECTION Mongoose
 mongoose.connect("mongodb://localhost:27017/dashboard", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
 });
-// GLOBAL VARIABLES
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
-  
-
-
 // ****************************************************
 // ROUTES
 //
