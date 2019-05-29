@@ -10,7 +10,8 @@ const createError = require('http-errors'),
 			favicon = require('serve-favicon'),
 			bodyParser = require('body-parser'),
 			passport = require('passport'),
-			mongoose = require('mongoose'),
+			mysql = require('mysql'),
+      mongoose = require('mongoose'),
 			session = require('express-session');
 			app = express();
 // MODELS - MongoDB
@@ -40,7 +41,7 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// DATABASE CONNECTION
+// DATABASE CONNECTION Mongoose
 mongoose.connect("mongodb://localhost:27017/dashboard", {
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -50,6 +51,9 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+  
+
+
 // ****************************************************
 // ROUTES
 //
