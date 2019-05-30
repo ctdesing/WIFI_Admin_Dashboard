@@ -24,7 +24,6 @@ module.exports = {
   			// var count = results[0].count;
   			// console.log("We have " + count + "users in our db");
 			});
-
 			res.render('index', {site: 'dashboard', title: 'Jhon Nieves'});
 		}
 		else {

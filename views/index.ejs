@@ -38,12 +38,14 @@
               <p>Dashboard</p>
             </a>
           </li>
+          <% if (currentUser.isAdmin) { -%>
           <li class="nav-item ">
             <a class="nav-link" href="/users">
               <i class="material-icons">person</i>
               <p>Users</p>
             </a>
           </li>
+          <% } -%>
           <li class="nav-item ">
             <a class="nav-link" href="#">
               <i class="material-icons">domain</i>
@@ -62,13 +64,14 @@
               <p>Table</p>
             </a>
           </li>
+          <% if (currentUser.isAdmin) { -%>          
           <li class="nav-item ">
             <a class="nav-link" href="" f="#">
               <i class="material-icons">build</i>
               <p>Administrator</p>
             </a>
           </li>
-
+          <% } -%>
       </div>
     </div>
     <div class="main-panel">
