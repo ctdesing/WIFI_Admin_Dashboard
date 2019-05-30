@@ -1,3 +1,19 @@
+const mysql = require('mysql');
+
+//DATABASE CONNECTION MYSQL
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'qzP01001110'
+});
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+  }
+  else
+    console.log('connected as id ' + connection.threadId);
+});
+
 module.exports = {
 	index(req, res, next) {
 		if (req.isAuthenticated()) {
@@ -5,8 +21,8 @@ module.exports = {
 			connection.query(q, function(err, results){
 				if (err) next(err);
   			console.log(results);
-  			var count = results[0].count;
-  			console.log("We have " + count + "users in our db");
+  			// var count = results[0].count;
+  			// console.log("We have " + count + "users in our db");
 			});
 
 			res.render('index', {site: 'dashboard', title: 'Jhon Nieves'});
