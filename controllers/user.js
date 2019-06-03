@@ -5,7 +5,7 @@ module.exports = {
 		User.find({}, (err, users) => {
 			if (err) next(err);
 			else {
-				res.render('index', {site: 'users', title: 'Jhon Nieves', users});
+				res.render('index', {site: './administrators/users', title: 'Jhon Nieves', users});
 			}
 		});
 	},
