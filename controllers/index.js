@@ -15,8 +15,10 @@ connection.connect(function(err) {
 });
 
 module.exports = {
+	//
 	index(req, res, next) {
 		if (req.isAuthenticated()) {
+			//DASHBOARD
 			var q = "SELECT COUNT(*) FROM users";
 			connection.query(q, function(err, results){
 				if (err) next(err);
@@ -30,11 +32,37 @@ module.exports = {
 			res.render('landing', {title: 'Jhon Nieves'});
 		}
 	},
+	//
 	signin(req, res, next) {
 		res.redirect('/');
 	},
+	//
 	signout(req, res, next) {
 		req.logout();
 		res.redirect('/');
+	},
+	//
+	trafficVolume(req, res, next) {
+		res.render('index', {site: './users/trafficvolume', title: 'Jhon Nieves'});
+	},
+	//
+	dataUsage(req, res, next) {
+		res.render('index', {site: './users/datausage', title: 'Jhon Nieves'});
+	},
+	//
+	uniqueLines(req, res, next) {
+		res.render('index', {site: './users/uniquelines', title: 'Jhon Nieves'});
+	},
+	//
+	venues(req, res, next) {
+		res.render('index', {site: './administrators/venues', title: 'Jhon Nieves'});
+	},
+	// 
+	aps(req, res, next) {
+		res.render('index', {site: './administrators/aps', title: 'Jhon Nieves'});
+	},
+	// 
+	history(req, res, next) {
+		res.render('index', {site: 'history', title: 'Jhon Nieves'});
 	}
 };

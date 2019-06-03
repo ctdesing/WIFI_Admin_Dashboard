@@ -45,23 +45,43 @@
               <p>Users</p>
             </a>
           </li>
-          <% } -%>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/venues">
               <i class="material-icons">domain</i>
               <p>Venues</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="aps">
               <i class="material-icons">settings_input_antenna</i>
               <p>APs</p>
             </a>
           </li>
+          <% } -%>
+          <% if (!currentUser.isAdmin) { -%>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/trafficvolume">
+              <i class="material-icons">domain</i>
+              <p>Traffic Volume</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/datausage">
+              <i class="material-icons">settings_input_antenna</i>
+              <p>Data Usage</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/uniquelines">
+              <i class="material-icons">settings_input_antenna</i>
+              <p>Unique Lines</p>
+            </a>
+          </li>
+          <% } -%>
+          <li class="nav-item ">
+            <a class="nav-link" href="/history">
               <i class="material-icons">grid_on</i>
-              <p>Table</p>
+              <p>History</p>
             </a>
           </li>
           <% if (currentUser.isAdmin) { -%>          
