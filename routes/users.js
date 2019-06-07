@@ -1,10 +1,10 @@
 const express = require('express'),
 			app = express.Router(),
-			{ userAuth } = require('../middleware/index'),
-			{ index, create, profile, edit, update, destroy } = require('../controllers/user');
+			{ isAuthenticated, isAuthorized } = require('../middleware/index'),
+			{ index, create, profile, update, destroy } = require('../controllers/user');
 
 // USERS SECTION
-app.get('/', userAuth, index);
+app.get('/', isAuthenticated, isAuthorized, index);
 // NEW -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- 
 app.get('/new', (req, res, next) => {
 	res.render('register', {title: 'Jhon Nieves'});
@@ -15,8 +15,6 @@ app.get('/new', (req, res, next) => {
 app.post('/', create);
 // SHOW GET
 app.get('/:username', profile);
-// EDIT GET
-app.get('/:id/edit', edit);
  // UPDATE PUT
 app.put('/:id', update);
 // DESTROY DELETE
