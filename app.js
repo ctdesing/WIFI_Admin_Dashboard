@@ -9,6 +9,7 @@ const createError = require('http-errors'),
 			logger = require('morgan'),
 			favicon = require('serve-favicon'),
 			bodyParser = require('body-parser'),
+      flash = require('connect-flash'),
 			passport = require('passport'),
       mongoose = require('mongoose'),
 			session = require('express-session'),
@@ -26,6 +27,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(flash());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
 // SESSION
@@ -43,6 +45,9 @@ passport.deserializeUser(User.deserializeUser());
 // GLOBAL VARIABLES
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  res.locals.info = req.flash('info');
   next();
 });
 // DATABASE CONNECTION Mongoose

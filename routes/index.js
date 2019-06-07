@@ -1,30 +1,32 @@
 const express = require('express'),
 			passport = require('passport'),
+			{ isAuthenticated, isAuthorized } = require('../middleware/index'),
 			app = express.Router(),
-			{ index, signin, signout, trafficVolume, dataUsage, uniqueLines, venues, aps, history } = require('../controllers/index');
+			{ index, signin, signout, trafficVolume, dataUsage, uniqueLines, venues, aps, history, administrators } = require('../controllers/index');
 
 // INDEX ROUTE
 app.get('/', index);
 // ****************************************************
 // USER AUTH ROUTES
-app.post('/signin', passport.authenticate('local'), signin);
+app.post('/', signin);
 app.get('/signout', signout);
 // ****************************************************
 //
 // USERS ROUTES
 //
-app.get('/trafficvolume', trafficVolume);
-app.get('/datausage', dataUsage);
-app.get('/uniquelines', uniqueLines);
+app.get('/trafficvolume', isAuthenticated, trafficVolume);
+app.get('/datausage', isAuthenticated, dataUsage);
+app.get('/uniquelines', isAuthenticated, uniqueLines);
 //
 //HISTORY ROUTE
-app.get('/history', history);
+app.get('/history', isAuthenticated, history);
 // ****************************************************
 //
 // ADMINISTRATORS ROUTES
 //
-app.get('/venues', venues);
-app.get('/aps', aps);
+app.get('/venues', isAuthenticated, isAuthorized, venues);
+app.get('/aps', isAuthenticated, isAuthorized, aps);
+app.get('/administrators', isAuthenticated, isAuthorized, administrators);
 //
 //
 module.exports = app;

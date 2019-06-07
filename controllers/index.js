@@ -1,4 +1,6 @@
-const mysql = require('mysql');
+const mysql = require('mysql'),
+			passport = require('passport'),
+			User = require('../models/user');
 
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
@@ -34,7 +36,27 @@ module.exports = {
 	},
 	//
 	signin(req, res, next) {
-		res.redirect('/');
+		passport.authenticate('local', function(err, user, info) {
+		if (err) { 
+			next(err);
+		}
+		else {
+			if (!user) { 
+				req.flash('error', 'Username or Password incorrect, please try again.');
+				res.redirect('/'); 
+			}
+			else {
+				req.logIn(user, function(err) {
+					if (err) { 
+						next(err);
+					}
+					else {
+						res.redirect('/');
+					}
+				});
+			}
+		}
+	})(req, res, next);
 	},
 	//
 	signout(req, res, next) {
@@ -64,5 +86,13 @@ module.exports = {
 	// 
 	history(req, res, next) {
 		res.render('index', {site: 'history', title: 'Jhon Nieves'});
+	},
+	administrators(req, res, next) {
+		User.find({}, (err, users) => {
+			if (err) next(err);
+			else {
+				res.render('index', {site: './administrators/administrators', title: 'Jhon Nieves', users});
+			}
+		});
 	}
 };

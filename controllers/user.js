@@ -27,13 +27,16 @@ module.exports = {
 	profile(req, res, next) {
 		//TODO
 	},
-	edit(req, res, next) {
-		//TODO
-	},
 	update(req, res, next) {
 		//TODO
 	},
 	destroy(req, res, next) {
-		//TODO
+		User.findByIdAndRemove(req.params.id, (err)=>{
+			if(err) next(err);
+			else {
+				req.flash('info', 'User deleted successfully.');
+				res.redirect('/');
+			}
+		});
 	}
 };
