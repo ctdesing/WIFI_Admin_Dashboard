@@ -1,9 +1,30 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
+      <!-- Add User Form -->
+      <div id="user-form">
+        <form action="/users" method="POST" class="form-inline justify-content-center">
+          <div class="form-group mb-2">
+            <label>Name</label>
+            <input id="first-input" name="name" type="text" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Email</label>
+            <input name="username" type="email" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control">
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <input type="hidden" name="admin" value="true">
+          <button type="submit" class="btn btn-primary mb-2">Create</button>
+        </form>
+      </div>
+      <!-- EOF Add User Form -->
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title ">Administrators</h4>
+          <h4 class="card-title ">Administrators<span class="float-right"><i id="add-user" class="fa fa-user-plus fa-2x"></i></span></h4>
           <p class="card-category">List of Administrators</p>
         </div>
         <div class="card-body">
@@ -35,7 +56,7 @@
                   </td>
                   <td>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                       </button>
                       <div class="dropdown-menu">
@@ -65,6 +86,20 @@
       else
         link.classList.remove('active');
     });
+
+    let hidden = true;
+    $('#add-user').click(function(e){
+      if (hidden) {
+        $('#user-form').css("display", "block");
+        $('#first-input').focus();
+        hidden = false;
+      }
+      else {
+        $('#user-form').css("display", "none");
+        hidden = true;
+      }
+    });
+
   });
 </script>
       

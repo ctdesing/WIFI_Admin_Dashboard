@@ -5,22 +5,28 @@ module.exports = {
 		User.find({}, (err, users) => {
 			if (err) next(err);
 			else {
-				res.render('index', {site: './administrators/users', title: 'Jhon Nieves', users});
+				res.render('index', {site: './administrators/users', title: 'Jhon Nieves', users, url: "/users"});
 			}
 		});
 	},
 	create(req, res, next) {
+		let isAdmin = false;
+
+		if (req.body.admin == "true")
+			isAdmin = true;
+
 		const newUser = new User({
 			username: req.body.username,
 			email: req.body.username,
-			name: req.body.name
+			name: req.body.name,
+			isAdmin: isAdmin
 		});
 		User.register(newUser, req.body.password, (err, user) => {
 		  if (err) {
 		    next(err);
 		  }
 		  else {
-		  	res.redirect('/');
+		  	res.redirect(req.body.url);
 		  }
 		});
 	},
