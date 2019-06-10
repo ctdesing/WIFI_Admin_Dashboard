@@ -4,9 +4,9 @@ const mysql = require('mysql'),
 
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'qzP01001110'
+  host     : 'jancxdashboard.ddns.net',
+  user     : 'jancx',
+  password : '0100111001'
 });
 connection.connect(function(err) {
   if (err) {
@@ -91,7 +91,7 @@ module.exports = {
 		User.find({}, (err, users) => {
 			if (err) next(err);
 			else {
-				res.render('index', {site: './administrators/administrators', title: 'Jhon Nieves', users});
+				res.render('index', {site: './administrators/administrators', title: 'Jhon Nieves', users, url: "/administrators"});
 			}
 		});
 	}
