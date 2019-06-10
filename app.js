@@ -51,7 +51,7 @@ app.use((req, res, next) => {
   next();
 });
 // DATABASE CONNECTION Mongoose
-mongoose.connect("mongodb://localhost:27017/dashboard", {
+mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:27017/dashboard?authSource=admin", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
