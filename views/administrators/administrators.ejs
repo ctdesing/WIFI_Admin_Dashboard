@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <!-- Add User Form -->
+      <!-- Add Administrator Form -->
       <div id="user-form">
         <form action="/users" method="POST" class="form-inline justify-content-center">
           <div class="form-group mb-2">
@@ -21,7 +21,23 @@
           <button type="submit" class="btn btn-primary mb-2">Create</button>
         </form>
       </div>
-      <!-- EOF Add User Form -->
+      <!-- EOF Add Administrator Form -->
+      <!-- Edit Administrator Form -->
+      <div id="edit-section">
+        <form id="edit-form" action="/users" method="POST" class="form-inline justify-content-center">
+          <div class="form-group mb-2">
+            <label>Name</label>
+            <input id="name" name="name" type="text" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Email</label>
+            <input id="email" name="username" type="email" class="form-control">
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <button type="submit" class="btn btn-primary mb-2">Update</button>
+        </form>
+      </div>
+      <!-- EOF Edit Administrator Form -->
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title ">Administrators<span class="float-right"><i id="add-user" class="fa fa-user-plus fa-2x"></i></span></h4>
@@ -56,14 +72,17 @@
                   </td>
                   <td>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                       </button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Edit</a>
-                        <a class="dropdown-item" href="#">Make Admin</a>
+                        <a class="dropdown-item edit-user">Edit<span class="user-id"><%= user._id %></span></a>
+                        <a class="dropdown-item" href="#">Demote</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">DELETE</a>
+                        <form action="/users/<%= user._id %>?method=DELETE" method="POST">
+                          <input type="hidden" name="url" value="<%=url%>">
+                          <button class="dropdown-item">DELETE</button>
+                        </form>
                       </div>
                     </div>
                   </td>
@@ -80,13 +99,14 @@
 </div>
 <script>
   $( document ).ready(function() {
+    // left navbar links
     document.querySelectorAll('.nav-list').forEach(function(link){
       if (link.id == "administrators")
         link.classList.add('active');
       else
         link.classList.remove('active');
     });
-
+    // add administrator form
     let hidden = true;
     $('#add-user').click(function(e){
       if (hidden) {
@@ -99,7 +119,16 @@
         hidden = true;
       }
     });
-
+    // edit user form
+    $('.dropdown-menu>a.edit-user').click(function(e){
+      let userId = $(this).children().text();
+      $.get(`/users/${userId}`, function(data){
+        $('#name').val(data.name);
+        $('#email').val(data.email);
+        $('#edit-form').attr('action', `/users/${data._id}?method=PUT`);
+        $('#user-form').css("display", "none");
+        $('#edit-section').css("display", "block");
+      });
+    });
   });
-</script>
-      
+</script>      

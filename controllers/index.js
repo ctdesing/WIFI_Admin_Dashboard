@@ -5,6 +5,7 @@ const mysql = require('mysql'),
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
   host     : 'jancxdashboard.ddns.net',
+  port     : '4381',
   user     : 'jancx',
   password : '0100111001'
 });

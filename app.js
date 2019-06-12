@@ -13,6 +13,7 @@ const createError = require('http-errors'),
 			passport = require('passport'),
       mongoose = require('mongoose'),
 			session = require('express-session'),
+      methodOverride = require('method-override'),
 			app = express();
 // MODELS - MongoDB
 const User = require('./models/user');
@@ -25,6 +26,7 @@ const indexRouter = require('./routes/index'),
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
+app.use(methodOverride('method'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
@@ -51,7 +53,7 @@ app.use((req, res, next) => {
   next();
 });
 // DATABASE CONNECTION Mongoose
-mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:27017/dashboard?authSource=admin", {
+mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:4399/dashboard?authSource=admin", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true
