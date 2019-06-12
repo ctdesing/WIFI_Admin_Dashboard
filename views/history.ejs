@@ -1,3 +1,103 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title ">Events</h4>
+        <p class="card-category">descripcion si lleva</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Start Time
+              </th>
+              <th>
+                End Time
+              </th>
+              <th>
+                Duration
+              </th>
+              <th>
+                Client MAC
+              </th>
+              <th>
+                Client Name
+              </th>
+              <th>
+                Hostname
+              </th>
+              <th>
+                Device
+              </th>
+              <th>
+                OS Type
+              </th>
+              <th>
+                DL
+              </th>
+              <th>
+                Upload
+              </th>
+              <th>
+                AP Name
+              </th>
+              <th>
+                AP MAC Address
+              </th>
+            </thead>
+            <tbody>
+              <% results.forEach(function(result){ -%>
+              <tr>
+                <td>
+                  <%= result.start_time %>
+                </td>
+                <td>
+                  <%= result.end_time %>
+                </td>
+                <td>
+                  <%= result.duration %>
+                </td>
+                <td>
+                  <%= result.client_mac %>
+                </td>
+                <td>
+                  <%= result.client_name %>
+                </td>
+                <td>
+                  <%= result.hostname %>
+                </td>
+                <td>
+                  <%= result.device%>
+                </td>
+                <td>
+                  <%= result.os_type %>
+                </td>
+                <td>
+                  <%= result.dl %>
+                </td>
+                <td>
+                  <%= result.upload %>
+                </td>
+                <td>
+                  <%= result.ap_name %>
+                </td>
+                <td>
+                  <%= result.ap_macaddress %>
+                </td>
+              </tr>
+              <% }); -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <script>
   $( document ).ready(function() {
     document.querySelectorAll('.nav-list').forEach(function(link){
