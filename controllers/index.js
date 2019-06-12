@@ -1,6 +1,7 @@
 const mysql = require('mysql'),
 			passport = require('passport'),
-			User = require('../models/user');
+			User = require('../models/user'),
+			{ firstQuery } = require('../table');
 
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
@@ -38,17 +39,17 @@ module.exports = {
 	//
 	signin(req, res, next) {
 		passport.authenticate('local', function(err, user, info) {
-		if (err) { 
+		if (err) {
 			next(err);
 		}
 		else {
-			if (!user) { 
+			if (!user) {
 				req.flash('error', 'Username or Password incorrect, please try again.');
-				res.redirect('/'); 
+				res.redirect('/');
 			}
 			else {
 				req.logIn(user, function(err) {
-					if (err) { 
+					if (err) {
 						next(err);
 					}
 					else {
@@ -80,13 +81,16 @@ module.exports = {
 	venues(req, res, next) {
 		res.render('index', {site: './administrators/venues', title: 'Jhon Nieves'});
 	},
-	// 
+	//
 	aps(req, res, next) {
 		res.render('index', {site: './administrators/aps', title: 'Jhon Nieves'});
 	},
-	// 
+	//
 	history(req, res, next) {
-		res.render('index', {site: 'history', title: 'Jhon Nieves'});
+		connection.query(firstQuery, function(err, results){
+		 	if(err) return next(err);
+			res.render('index', {site: 'history', title: 'Jhon Nieves', results});
+		});
 	},
 	administrators(req, res, next) {
 		User.find({}, (err, users) => {
