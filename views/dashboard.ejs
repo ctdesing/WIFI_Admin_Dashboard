@@ -413,127 +413,14 @@
         </div>
       </div>
     </div>
-    <!--  -->
-    <div class="page-content page-content-example">
-      <div class="col-xxl-7">
-        <!-- Card -->
-        <div class="card card-shadow weather">
-          <div class="card-header card-header-transparent cover overlay">
-            <img class="cover-image h-xl-450" src="../../global/photos/city-7-960x480.jpg" alt="...">
-            <div class="overlay-panel">
-              <span class="font-size-40 white">City</span>
-              <div class="weather-location input-search float-right mt-10">
-                <input type="text" class="form-control form-control-sm grey-200" placeholder="Location">
-                <button type="submit" class="input-search-btn">
-                  <i class="icon wb-search grey-400" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-footer bg-white">
-            <div class="row no-space">
-              <div class="col-lg-4 col-md-5 pl-30 py-30">
-                <div class="row">
-                  <div class="col-4">
-                    <div class="vertical-align">
-                      <i class="vertical-align-middle wi-day-sunny font-size-50 mt-10"></i>
-                    </div>
-                  </div>
-
-                  <div class="col-8">
-                    <span class="blue-600 font-size-40">20°
-                      <span class="font-size-30">C</span>
-                    </span>
-                    <span class="font-size-18 blue-grey-700">/</span>
-                    <span class="font-size-18 blue-grey-700">7°
-                      <span class="font-size-16">C</span>
-                    </span>
-                    <p class="font-size-14 mb-0">MONDAY 11.11.2017</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-8 col-md-7">
-                <div class="row no-space text-center">
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">TUE</div>
-                        <i class="wi-day-sunny font-size-24 mb-10"></i>
-                        <div>24°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">WED</div>
-                        <i class="wi-day-cloudy font-size-24 mb-10"></i>
-                        <div>21°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">THU</div>
-                        <i class="wi-day-sunny font-size-24 mb-10"></i>
-                        <div>25°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">FRI</div>
-                        <i class="wi-day-cloudy-gusts font-size-24 mb-10"></i>
-                        <div>20°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">SAT</div>
-                        <i class="wi-day-lightning font-size-24 mb-10"></i>
-                        <div>18°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-2">
-                    <div class="weather-day vertical-align">
-                      <div class="vertical-align-middle font-size-16">
-                        <div class="mb-10">SUN</div>
-                        <i class="wi-day-storm-showers font-size-24 mb-10"></i>
-                        <div>14°
-                          <span class="font-size-12">C</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Card -->
-      </div>
+    <!-- Weather widget -->
+    <% if(!currentUser.isAdmin) {%>
+    <div class="col-lg-6 col-md-12">
+      <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_1="NEW YORK" data-label_2="WEATHER" data-theme="original" >NEW YORK WEATHER</a>
     </div>
+    <% } %>
   </div>
 </div>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>

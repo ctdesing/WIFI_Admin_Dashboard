@@ -31,17 +31,30 @@ module.exports = {
 		});
 	},
 	profile(req, res, next) {
-		//TODO
+		User.findById(req.params.id, function(err, user){
+			if (err) next(err);
+			else res.json(user);
+		});
 	},
 	update(req, res, next) {
-		//TODO
+		const userNewData = {
+			username: req.body.username,
+			email: req.body.username,
+			name: req.body.name,
+		};
+		User.findByIdAndUpdate(req.params.id, userNewData, function(err){
+			if (err) next(err);
+			else {
+				res.redirect(req.body.url);
+			}
+		});
 	},
 	destroy(req, res, next) {
 		User.findByIdAndRemove(req.params.id, (err)=>{
 			if(err) next(err);
 			else {
 				req.flash('info', 'User deleted successfully.');
-				res.redirect('/');
+				res.redirect(req.body.url);
 			}
 		});
 	}

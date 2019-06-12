@@ -8,6 +8,12 @@ a {
 #user-form{
 	display: none;
 }
+#edit-section{
+	display: none;
+}
 #add-user{
 	cursor: pointer;
+}
+.user-id{
+	display: none;
 }

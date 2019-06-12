@@ -14,7 +14,7 @@ app.get('/new', (req, res, next) => {
 // CREATE POST
 app.post('/', create);
 // SHOW GET
-app.get('/:username', profile);
+app.get('/:id', profile);
  // UPDATE PUT
 app.put('/:id', update);
 // DESTROY DELETE
