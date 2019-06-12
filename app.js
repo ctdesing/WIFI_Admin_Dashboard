@@ -52,6 +52,7 @@ app.use((req, res, next) => {
   res.locals.info = req.flash('info');
   next();
 });
+app.locals.moment = require('moment');
 // DATABASE CONNECTION Mongoose
 mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:4399/dashboard?authSource=admin", {
   useNewUrlParser: true,
