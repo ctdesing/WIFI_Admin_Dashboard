@@ -5,6 +5,9 @@ body {
 a {
   color: #00B7FF;
 }
+.user-id{
+	display: none;
+}
 #user-form{
 	display: none;
 }
@@ -14,6 +17,6 @@ a {
 #add-user{
 	cursor: pointer;
 }
-.user-id{
-	display: none;
+.main-panel > .content{
+	padding: 0;
 }
