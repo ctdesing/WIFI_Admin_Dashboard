@@ -8,23 +8,44 @@
         </div>
         <div class="card-body">
           <!--  -->
-          <form class="form-inline" action="/history/filter" method="GET">
+          <form id="filter" class="form-inline" action="/history/filter" method="GET">
             <select name="time" class="form-control">
-              <option value="1" selected>Last 24 hours</option><!--  -->
+              <option value="1">Last 24 hours</option><!--  -->
               <option value="7">Last 7 Days</option><!-- AND ap_name LIKE '%Cipria 42%' * -->
               <option value="30" >Last 30 Days</option>
             </select>
-            <!--    venues--> <!-- falta el boton de apply y reset -->
-            <select name="venues" class="form-control">
-              <option value="*" selected>All Venues</option>
-              <option value="%Cipriani 25%">Cipriani 25</option>
-              <option value="%Cipriani 42%" >Cipriani 42</option>
-              <option value="%Cipriani 55%">Cipriani 55</option>
-              <option value="%Glasshouses%">Glasshouses</option>
+            <!--    venues--> <!-- falta el boton de  y reset -->
+            <select id="venues" name="venues" class="form-control">
+              <option value="all">All Venues</option>
+              <option onclick="resetAps();" value="%Cipriani 25%">Cipriani 25</option>
+              <option onclick="resetAps();" value="%Cipriani 55%">Cipriani 55</option>
+              <option onclick="resetAps();" value="%Glasshouses%">Glasshouses</option>
+              <option onclick="resetAps();" value="%Cipriani 42%" >Cipriani 42</option>
             </select>
             <!-- AP -->
-            <select name="aps" class="form-control">
-              <option value="" selected>All Aps</option>
+            <select id="aps"name="aps" class="form-control"><!-- este es aps -->
+              <option id="allaps"value="all">All Aps</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Front Exit Sign%">Cipriani 25 Front Exit Sign</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Left Back Truss%" >Cipriani 25 Left Back Truss</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Left Front Truss%">Cipriani 25 Left Front Truss</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Right Back Truss%">Cipriani 25 Right Back Truss</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Right Front Truss%">Cipriani 25 Right Front Truss</option>
+              <option onclick="resetVenues();" value="%Cipriani 25 Stage R720%" >Cipriani 25 Stage R720</option>
+              <option onclick="resetVenues();" value="%Cipriani 42nd bridal suite%" >Cipriani 42nd bridal suite</option>
+              <option onclick="resetVenues();" value="%Cipriani 42nd Chapel%">Cipriani 42nd Chapel</option>
+              <option onclick="resetVenues();" value="Cipriani 42nd Eagles Nest%">Cipriani 42nd Eagles Nest</option>
+              <option onclick="resetVenues();" value="%Cipriani 42nd Front of house%">Cipriani 42nd Front of house</option>
+              <option onclick="resetVenues();" value="%Cipriani 42nd revolving door%" >Cipriani 42nd revolving door</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 Library%">Cipriani 55 Library</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 Library Catwalk%">Cipriani 55 Library Catwalk</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 Mezz R720%">Cipriani 55 Mezz R720</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 outside 1%">Cipriani 55 outside 1%</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 outside 2%">Cipriani 55 outside 2%</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 revolving door%">Cipriani 55 revolving door</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 StillMan%">Cipriani 55 StillMan</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 Stillman Catwalk%">Cipriani 55 Stillman Catwalk</option>
+              <option onclick="resetVenues();" value="%Cipriani 55 Vault%">Cipriani 55 Vault</option>
+              <option onclick="resetVenues();" value="%Glasshouses Center%">Glasshouses Center</option>
             </select>
             <!--All network -->
             <select name="network" class="form-control">
@@ -32,7 +53,8 @@
             </select>
             <!--Filter by client MAC address  -->
             <input type="text" name="filter" placeholder="Filter by Client MAC Address">
-            <!--  --> 
+            <!--  -->
+            <input type="reset" value="Reset">
             <button>Apply</button>
           </form>
           <div class="table-responsive">
@@ -75,7 +97,7 @@
                   AP MAC Address
                 </th>
               </thead>
-              <tbody>
+              <tbody id="table-body">
                 <% results.forEach(function(result){ -%>
                 <tr>
                   <td>
@@ -118,17 +140,24 @@
                 <% }); -%>
               </tbody>
             </table>
+            <div id="display" class="text-warning" role="alert"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
 <script>
+  function resetVenues() {
+    $('#venues option').filter(function() {
+      return this.textContent == 'All Venues';
+    }).prop('selected', true);
+  }
+  function resetAps() {
+    $('#aps option').filter(function() {
+      return this.textContent == 'All Aps';
+    }).prop('selected', true);
+  }
   $( document ).ready(function() {
     document.querySelectorAll('.nav-list').forEach(function(link){
       if (link.id == "history")
@@ -136,5 +165,70 @@
       else
         link.classList.remove('active');
     });
+
+    $('#filter').submit(function(e){
+      e.preventDefault();
+      var info = $(this).serialize();
+      $('#table-body tr').remove();
+      $('#display').css('display', 'block');
+      $('#display').text('Loading...It may take some time.');
+
+      $.post("/history/filter", info, function(data){
+        if (data.length > 0) {
+          $('#display').css('display', 'none');
+          data.forEach(function(user){
+            console.log(user.end_time);
+            $('#table-body').append(
+              `
+              <tr>
+                <td>
+                  ${moment(user.start_time).format('Do MMMM, YYYY')}
+                </td>
+                <td>
+                  ${moment(user.end_time).format('Do MMMM, YYYY')}
+                </td>
+                <td>
+                  ${user.duration}
+                </td>
+                <td>
+                  ${user.client_mac}
+                </td>
+                <td>
+                  ${user.client_name}
+                </td>
+                <td>
+                  ${user.hostname}
+                </td>
+                <td>
+                  ${user.device}
+                </td>
+                <td>
+                  ${user.os_type}
+                </td>
+                <td>
+                  ${user.dl}
+                </td>
+                <td>
+                  ${user.upload}
+                </td>
+                <td>
+                  ${user.ap_name}
+                </td>
+                <td>
+                  ${user.ap_macaddress}
+                </td>
+              </tr>
+              `
+            );
+          });
+        }
+        else{
+          $('#display').css('display', 'block');
+          $('#display').text('Nothing found, please refine your search!');
+        }
+      });
+    });
+
+
   });
 </script>

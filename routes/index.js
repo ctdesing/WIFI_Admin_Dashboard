@@ -20,7 +20,7 @@ app.get('/uniquelines', isAuthenticated, uniqueLines);
 //
 //HISTORY ROUTE
 app.get('/history', isAuthenticated, history);
-app.get('/history/filter', isAuthenticated, historyApi);
+app.post('/history/filter', isAuthenticated, historyApi);
 // ****************************************************
 //
 // ADMINISTRATORS ROUTES
