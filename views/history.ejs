@@ -3,10 +3,38 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title ">Events</h4>
-          <p class="card-category">descripcion si lleva</p>
+          <h4 class="card-title ">Session Inventory</h4>
+          <p class="card-category">History</p>
         </div>
         <div class="card-body">
+          <!--  -->
+          <form class="form-inline" action="/history/filter" method="GET">
+            <select name="time" class="form-control">
+              <option value="1" selected>Last 24 hours</option><!--  -->
+              <option value="7">Last 7 Days</option><!-- AND ap_name LIKE '%Cipria 42%' * -->
+              <option value="30" >Last 30 Days</option>
+            </select>
+            <!--    venues--> <!-- falta el boton de apply y reset -->
+            <select name="venues" class="form-control">
+              <option value="*" selected>All Venues</option>
+              <option value="%Cipriani 25%">Cipriani 25</option>
+              <option value="%Cipriani 42%" >Cipriani 42</option>
+              <option value="%Cipriani 55%">Cipriani 55</option>
+              <option value="%Glasshouses%">Glasshouses</option>
+            </select>
+            <!-- AP -->
+            <select name="aps" class="form-control">
+              <option value="" selected>All Aps</option>
+            </select>
+            <!--All network -->
+            <select name="network" class="form-control">
+              <option value="" selected>All Networks</option>
+            </select>
+            <!--Filter by client MAC address  -->
+            <input type="text" name="filter" placeholder="Filter by Client MAC Address">
+            <!--  --> 
+            <button>Apply</button>
+          </form>
           <div class="table-responsive">
             <table class="table">
               <thead class=" text-primary">
