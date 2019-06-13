@@ -1,7 +1,7 @@
 const mysql = require('mysql'),
 			passport = require('passport'),
 			User = require('../models/user'),
-			{ firstQuery } = require('../table');
+			{ lastSevenDays } = require('../table');
 
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
@@ -87,9 +87,50 @@ module.exports = {
 	},
 	//
 	history(req, res, next) {
-		connection.query(firstQuery, function(err, results){
+		connection.query(lastSevenDays, function(err, results){
 		 	if(err) return next(err);
 			res.render('index', {site: 'history', title: 'Jhon Nieves', results});
+		});
+	},
+	historyApi(req, res, next) {
+		const f = {
+			time: req.query.time,
+			venues: req.query.venues,
+			aps: req.query.aps,
+			network:req.query.network,
+			filter: req.query.filter
+		};
+		console.log(f);
+		let venuesString = 	"";
+		if (f.venues != '*')
+			venuesString = 	" AND ap_name LIKE '" + f.venues + "'";
+
+		const queryString = `SELECT *FROM cloud_session.UserInfo WHERE start_time >= NOW() - INTERVAL ${f.time} DAY` + venuesString;// ${f.aps} ${f.network} ${f.filter}
+		connection.query(queryString, function(err, results){
+		 	if(err) return next(err);
+			if(f.filter.length > 0){
+				if(f.filter.length == 17){
+					let result = [];
+					console.log(f.filter);
+					results.forEach(function(user){
+						let mac = user.client_mac.replace(/\s/g, "");
+						if(mac == f.filter){
+							console.log('Here goes the user information =====================================');
+							result.push(user);
+						}
+					});
+					console.log(result);
+					res.render('index', {site: 'history', title: 'Jhon Nieves', results: result});
+				}
+				else {
+					req.flash('error', 'MAC Address suplied is invalid, please try again!');
+					res.render('index', {site: 'history', title: 'Jhon Nieves', results});
+				}
+			}
+			else {
+				res.render('index', {site: 'history', title: 'Jhon Nieves', results});
+			}
+
 		});
 	},
 	administrators(req, res, next) {
