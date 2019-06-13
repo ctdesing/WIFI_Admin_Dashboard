@@ -20,3 +20,7 @@ a {
 .main-panel > .content{
 	padding: 0;
 }
+#display{
+	font-size: 1.2rem;
+	display: none;
+}

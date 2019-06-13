@@ -93,29 +93,38 @@ module.exports = {
 		});
 	},
 	historyApi(req, res, next) {
+		// const f = {
+		// 	time: req.query.time,
+		// 	venues: req.query.venues,
+		// 	aps: req.query.aps,
+		// 	network:req.query.network,
+		// 	filter: req.query.filter
+		// };
 		const f = {
-			time: req.query.time,
-			venues: req.query.venues,
-			aps: req.query.aps,
-			network:req.query.network,
-			filter: req.query.filter
+			time: req.body.time,
+			venues: req.body.venues,
+			aps: req.body.aps,
+			network:req.body.network,
+			filter: req.body.filter
 		};
 		console.log(f);
 		let venuesString = 	"";
-		if (f.venues != '*')
+		let apsString = "";
+		if (f.venues != 'all')
 			venuesString = 	" AND ap_name LIKE '" + f.venues + "'";
 
-		const queryString = `SELECT *FROM cloud_session.UserInfo WHERE start_time >= NOW() - INTERVAL ${f.time} DAY` + venuesString;// ${f.aps} ${f.network} ${f.filter}
+		if (f.aps != 'all')
+				apsString = 	" AND ap_name LIKE '" + f.aps + "'";
+		const queryString = `SELECT *FROM cloud_session.UserInfo WHERE start_time >= NOW() - INTERVAL ${f.time} DAY` + venuesString + apsString;
 		connection.query(queryString, function(err, results){
 		 	if(err) return next(err);
+			
 			if(f.filter.length > 0){
 				if(f.filter.length == 17){
 					let result = [];
-					console.log(f.filter);
 					results.forEach(function(user){
 						let mac = user.client_mac.replace(/\s/g, "");
 						if(mac == f.filter){
-							console.log('Here goes the user information =====================================');
 							result.push(user);
 						}
 					});
@@ -127,8 +136,9 @@ module.exports = {
 					res.render('index', {site: 'history', title: 'Jhon Nieves', results});
 				}
 			}
+
 			else {
-				res.render('index', {site: 'history', title: 'Jhon Nieves', results});
+				res.json(results);
 			}
 
 		});
