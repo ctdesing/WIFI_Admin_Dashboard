@@ -9,47 +9,47 @@
         <div class="card-body">
           <!--  -->
           <form id="filter" class="form-inline" action="/history/filter" method="GET">
-            <select name="time" class="form-control">
-              <option value="1" onclick="hideDatePicker();">Last 24 hours</option>
-              <option value="7" onclick="hideDatePicker();">Last 7 Days</option>
-              <option value="30" onclick="hideDatePicker();">Last 30 Days</option>
-              <option value="custom" onclick="pickDate();">Custom</option>
+            <select id="date" name="time" class="form-control" onchange="pickDate()">
+              <option value="1">Last 24 hours</option>
+              <option value="7">Last 7 Days</option>
+              <option value="30">Last 30 Days</option>
+              <option value="custom">Custom</option>
             </select>
             <!-- custom date -->
             <input class="date" type="date" name="start">
             <input class="date" type="date" name="end">
-            <!--    venues-->
-            <select id="venues" name="venues" class="form-control">
+            <!--    venues-->                                     <!--ve borrandole lo onclick      ok-->
+            <select id="venues" name="venues" class="form-control" onchange="resetAps()">
               <option value="all">All Venues</option>
-              <option onclick="resetAps();" value="%Cipriani 25%">Cipriani 25</option>
-              <option onclick="resetAps();" value="%Cipriani 55%">Cipriani 55</option>
-              <option onclick="resetAps();" value="%Glasshouses%">Glasshouses</option>
-              <option onclick="resetAps();" value="%Cipriani 42%" >Cipriani 42</option>
+              <option value="%Cipriani 25%">Cipriani 25</option>
+              <option value="%Cipriani 55%">Cipriani 55</option>
+              <option value="%Glasshouses%">Glasshouses</option>
+              <option value="%Cipriani 42%" >Cipriani 42</option>
             </select>
             <!-- AP -->
-            <select id="aps"name="aps" class="form-control">
+            <select id="aps"name="aps" class="form-control" onchange="resetVenues()">
               <option id="allaps"value="all">All Aps</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Front Exit Sign%">Cipriani 25 Front Exit Sign</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Left Back Truss%" >Cipriani 25 Left Back Truss</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Left Front Truss%">Cipriani 25 Left Front Truss</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Right Back Truss%">Cipriani 25 Right Back Truss</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Right Front Truss%">Cipriani 25 Right Front Truss</option>
-              <option onclick="resetVenues();" value="%Cipriani 25 Stage R720%" >Cipriani 25 Stage R720</option>
-              <option onclick="resetVenues();" value="%Cipriani 42nd bridal suite%" >Cipriani 42nd bridal suite</option>
-              <option onclick="resetVenues();" value="%Cipriani 42nd Chapel%">Cipriani 42nd Chapel</option>
-              <option onclick="resetVenues();" value="Cipriani 42nd Eagles Nest%">Cipriani 42nd Eagles Nest</option>
-              <option onclick="resetVenues();" value="%Cipriani 42nd Front of house%">Cipriani 42nd Front of house</option>
-              <option onclick="resetVenues();" value="%Cipriani 42nd revolving door%" >Cipriani 42nd revolving door</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 Library%">Cipriani 55 Library</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 Library Catwalk%">Cipriani 55 Library Catwalk</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 Mezz R720%">Cipriani 55 Mezz R720</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 outside 1%">Cipriani 55 outside 1%</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 outside 2%">Cipriani 55 outside 2%</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 revolving door%">Cipriani 55 revolving door</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 StillMan%">Cipriani 55 StillMan</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 Stillman Catwalk%">Cipriani 55 Stillman Catwalk</option>
-              <option onclick="resetVenues();" value="%Cipriani 55 Vault%">Cipriani 55 Vault</option>
-              <option onclick="resetVenues();" value="%Glasshouses Center%">Glasshouses Center</option>
+              <option value="%Cipriani 25 Front Exit Sign%">Cipriani 25 Front Exit Sign</option>
+              <option value="%Cipriani 25 Left Back Truss%" >Cipriani 25 Left Back Truss</option>
+              <option value="%Cipriani 25 Left Front Truss%">Cipriani 25 Left Front Truss</option>
+              <option value="%Cipriani 25 Right Back Truss%">Cipriani 25 Right Back Truss</option>
+              <option value="%Cipriani 25 Right Front Truss%">Cipriani 25 Right Front Truss</option>
+              <option value="%Cipriani 25 Stage R720%" >Cipriani 25 Stage R720</option>
+              <option value="%Cipriani 42nd bridal suite%" >Cipriani 42nd bridal suite</option>
+              <option value="%Cipriani 42nd Chapel%">Cipriani 42nd Chapel</option>
+              <option value="Cipriani 42nd Eagles Nest%">Cipriani 42nd Eagles Nest</option>
+              <option value="%Cipriani 42nd Front of house%">Cipriani 42nd Front of house</option>
+              <option value="%Cipriani 42nd revolving door%" >Cipriani 42nd revolving door</option>
+              <option value="%Cipriani 55 Library%">Cipriani 55 Library</option>
+              <option value="%Cipriani 55 Library Catwalk%">Cipriani 55 Library Catwalk</option>
+              <option value="%Cipriani 55 Mezz R720%">Cipriani 55 Mezz R720</option>
+              <option value="%Cipriani 55 outside 1%">Cipriani 55 outside 1%</option>
+              <option value="%Cipriani 55 outside 2%">Cipriani 55 outside 2%</option>
+              <option value="%Cipriani 55 revolving door%">Cipriani 55 revolving door</option>
+              <option value="%Cipriani 55 StillMan%">Cipriani 55 StillMan</option>
+              <option value="%Cipriani 55 Stillman Catwalk%">Cipriani 55 Stillman Catwalk</option>
+              <option value="%Cipriani 55 Vault%">Cipriani 55 Vault</option>
+              <option value="%Glasshouses Center%">Glasshouses Center</option>
             </select>
             <!--All network -->
             <select name="network" class="form-control">
@@ -98,7 +98,7 @@
                   AP Name
                 </th>
                 <th>
-                  AP MAC Address
+                  AP MAC Addressonclick="resetVenues();"
                 </th>
               </thead>
               <tbody id="table-body">
@@ -164,7 +164,11 @@
   }
   // CUSTOM DATE
   function pickDate() {
-    $('.date').css('display', 'block');
+    let value = $('#date').val();
+    if (value == "custom")
+      $('.date').css('display', 'block');
+    else
+      $('.date').css('display', 'none');
   }
   //HIDE DATE PICKER
   function hideDatePicker() {
