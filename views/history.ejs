@@ -10,11 +10,15 @@
           <!--  -->
           <form id="filter" class="form-inline" action="/history/filter" method="GET">
             <select name="time" class="form-control">
-              <option value="1">Last 24 hours</option><!--  -->
-              <option value="7">Last 7 Days</option><!-- AND ap_name LIKE '%Cipria 42%' * -->
-              <option value="30" >Last 30 Days</option>
+              <option value="1" onclick="hideDatePicker();">Last 24 hours</option>
+              <option value="7" onclick="hideDatePicker();">Last 7 Days</option>
+              <option value="30" onclick="hideDatePicker();">Last 30 Days</option>
+              <option value="custom" onclick="pickDate();">Custom</option>
             </select>
-            <!--    venues--> <!-- falta el boton de  y reset -->
+            <!-- custom date -->
+            <input class="date" type="date" name="start">
+            <input class="date" type="date" name="end">
+            <!--    venues-->
             <select id="venues" name="venues" class="form-control">
               <option value="all">All Venues</option>
               <option onclick="resetAps();" value="%Cipriani 25%">Cipriani 25</option>
@@ -23,7 +27,7 @@
               <option onclick="resetAps();" value="%Cipriani 42%" >Cipriani 42</option>
             </select>
             <!-- AP -->
-            <select id="aps"name="aps" class="form-control"><!-- este es aps -->
+            <select id="aps"name="aps" class="form-control">
               <option id="allaps"value="all">All Aps</option>
               <option onclick="resetVenues();" value="%Cipriani 25 Front Exit Sign%">Cipriani 25 Front Exit Sign</option>
               <option onclick="resetVenues();" value="%Cipriani 25 Left Back Truss%" >Cipriani 25 Left Back Truss</option>
@@ -101,10 +105,10 @@
                 <% results.forEach(function(result){ -%>
                 <tr>
                   <td>
-                    <%=  moment(result.start_time).format('Do MMMM, YYYY'); %>
+                    <%=  moment(result.start_time).format('MM-DD-YYYY hh:mm'); %>
                   </td>
                   <td>
-                    <%= moment(result.end_time).format('Do MMMM, YYYY'); %>
+                    <%= moment(result.end_time).format('MM-DD-YYYY hh:mm'); %>
                   </td>
                   <td>
                     <%= result.duration %>
@@ -158,6 +162,14 @@
       return this.textContent == 'All Aps';
     }).prop('selected', true);
   }
+  // CUSTOM DATE
+  function pickDate() {
+    $('.date').css('display', 'block');
+  }
+  //HIDE DATE PICKER
+  function hideDatePicker() {
+    $('.date').css('display', 'none');
+  }
   $( document ).ready(function() {
     document.querySelectorAll('.nav-list').forEach(function(link){
       if (link.id == "history")
@@ -182,10 +194,10 @@
               `
               <tr>
                 <td>
-                  ${moment(user.start_time).format('Do MMMM, YYYY')}
+                  ${moment(user.start_time).format('MM-DD-YYYY hh:mm')}
                 </td>
                 <td>
-                  ${moment(user.end_time).format('Do MMMM, YYYY')}
+                  ${moment(user.end_time).format('MM-DD-YYYY hh:mm')}
                 </td>
                 <td>
                   ${user.duration}

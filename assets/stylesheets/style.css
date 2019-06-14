@@ -8,6 +8,12 @@ a {
 .user-id{
 	display: none;
 }
+.main-panel > .content{
+	padding: 0;
+}
+.date{
+	display: none;
+}
 #user-form{
 	display: none;
 }
@@ -16,9 +22,6 @@ a {
 }
 #add-user{
 	cursor: pointer;
-}
-.main-panel > .content{
-	padding: 0;
 }
 #display{
 	font-size: 1.2rem;
