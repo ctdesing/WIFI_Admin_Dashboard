@@ -23,19 +23,15 @@ module.exports = {
 	//
 	index(req, res, next) {
 		if (req.isAuthenticated()) {
-			//DASHBOARD
-			var q = "SELECT COUNT(*) FROM users";
-			connection.query(q, function(err, results){
-				if (err) next(err);
-  			console.log(results);
-  			// var count = results[0].count;
-  			// console.log("We have " + count + "users in our db");
-			});
+			// DASHBOARD
 			res.render('index', {site: 'dashboard', title: 'Jhon Nieves'});
 		}
 		else {
 			res.render('landing', {title: 'Jhon Nieves'});
 		}
+	},
+	chartsApi(req, res, next) {
+		//TODO
 	},
 	//
 	signin(req, res, next) {
