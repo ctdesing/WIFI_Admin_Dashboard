@@ -1,3 +1,113 @@
+<!--  -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="heading text-dark">Session Inventory</h3>
+      <!-- Add User Form -->
+      <div id="user-form">
+        <form action="/users" method="POST" class="form-inline justify-content-center">
+          <div class="form-group mb-2">
+            <label>Name</label>
+            <input id="first-input" name="name" type="text" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Email</label>
+            <input name="username" type="email" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control">
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <input type="hidden" name="admin" value="false">
+          <button type="submit" class="btn btn-info mb-2">Create</button>
+        </form>
+      </div>
+      <!-- EOF Add User Form -->
+      <!-- Edit User Form -->
+      <div id="edit-section">
+        <form id="edit-form" action="/users" method="POST" class="form-inline justify-content-center">
+          <div class="form-group mb-2">
+            <label>Name</label>
+            <input id="name" name="name" type="text" class="form-control">
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label>Email</label>
+            <input id="email" name="username" type="email" class="form-control">
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <button type="submit" class="btn btn-info mb-2">Update</button>
+        </form>
+      </div>
+      <!-- EOF Edit User Form -->
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h4 class="card-title ">Session Inventory</h4>
+          <p class="card-category">History</p>
+        </div>
+        <div class="card-body">
+          <!--  -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-info">
+                <th>
+                  Venue
+                </th>
+                <th>
+                  Description
+                </th>
+                <th>
+                  City
+                </th>
+                <th>
+                  Country
+                </th>
+                <th>
+                  Networks
+                </th>
+                <th>
+                  No. of APs
+                </th>
+                <th>
+                  Clients
+                </th>
+              </thead>
+              <tbody id="table-body">
+                <% venues.forEach(function(venue){ -%>
+                <tr>
+                  <td>
+                    <%= venue.venue %>
+                  </td>
+                  <td>
+                    <%= venue.description %>
+                  </td>
+                  <td>
+                    <%= venue.city %>
+                  </td>
+                  <td>
+                    <%= venue.country %>
+                  </td>
+                  <td>
+                    <%= venue.networks %>
+                  </td>
+                  <td>
+                    <%= venue.noofaps %>
+                  </td>
+                  <td>
+                    <%= venue.clients %>
+                  </td>
+                </tr>
+                <% }); -%>
+              </tbody>
+            </table>
+            <div id="display" class="text-warning" role="alert"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   $( document ).ready(function() {
     document.querySelectorAll('.nav-list').forEach(function(link){
@@ -6,5 +116,18 @@
       else
         link.classList.remove('active');
     });
+    
+    let hidden = true;
+    $('#add-user').click(function(e){
+      if (hidden) {
+        $('#user-form').css("display", "block");
+        $('#first-input').focus();
+        hidden = false;
+      }
+      else {
+        $('#user-form').css("display", "none");
+        hidden = true;
+      }
+    });
   });
-</script>   
+</script>

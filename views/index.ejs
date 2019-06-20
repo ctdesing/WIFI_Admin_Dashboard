@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title><%= title %></title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=yes' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!-- Jquery -->
   <script src="/javascripts/core/jquery.min.js"></script>
   <!--     Fonts and icons     -->
@@ -19,8 +19,9 @@
   <!-- <link href="/stylesheets/demo.css" rel="stylesheet" /> -->
   <!-- Style -->
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/async/3.0.1/async.min.js"></script>
+  <script src="/javascripts/core/jquery.min.js"></script>
 </head>
-
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="white" data-image="/images/sidebar-1.jpg">
@@ -62,17 +63,13 @@
             </a>
           </li>
           <% } -%>
-          <% if (!currentUser.isAdmin) { -%>
-
-
-          <% } -%>
           <li id="history" class="nav-item nav-list">
             <a class="nav-link" href="/history">
               <i class="material-icons">grid_on</i>
               <p>History</p>
             </a>
           </li>
-          <% if (currentUser.isAdmin) { -%>          
+          <% if (currentUser.isAdmin) { -%>
           <li id="administrators" class="nav-item nav-list">
             <a class="nav-link" href="/administrators">
               <i class="material-icons">build</i>
@@ -91,7 +88,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="#pablo">Dashboard</a>
@@ -148,7 +145,7 @@
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/signout">Log out</a>
+                  <a class="dropdown-item" href="#">Log out</a>
                 </div>
               </li>
             </ul>
@@ -163,15 +160,14 @@
         <div class="container-fluid">
           <nav class="float-left">
             <ul>
-              
+
             </ul>
           </nav>
-          
+
       </footer>
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="/javascripts/core/jquery.min.js"></script>
   <script src="/javascripts/core/popper.min.js"></script>
   <script src="/javascripts/core/bootstrap-material-design.min.js"></script>
   <script src="/javascripts/plugins/perfect-scrollbar.jquery.min.js"></script>
@@ -205,12 +201,10 @@
   <script src="/javascripts/plugins/arrive.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="/javascripts/plugins/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="/javascripts/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/javascripts/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+  <!-- <script src="/javascripts/material-dashboard.js?v=2.1.1" type="text/javascript"></script> -->
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <!-- <script src="/javascripts/demo.js"></script> -->
   <script>
@@ -390,7 +384,7 @@
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+      setTimeout(md.initDashboardPageCharts, 2000);
 
     });
   </script>

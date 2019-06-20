@@ -16,10 +16,12 @@ const createError = require('http-errors'),
       methodOverride = require('method-override'),
 			app = express();
 // MODELS - MongoDB
-const User = require('./models/user');
+const User = require('./models/user'),
+      Venue = require('./models/venue');
 // ROUTER
 const indexRouter = require('./routes/index'),
-			usersRouter = require('./routes/users');
+			usersRouter = require('./routes/users'),
+      venuesRouter = require('./routes/venues');
 // ****************************************************
 // APP SETUP
 //
@@ -64,6 +66,7 @@ mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:4399/das
 //
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/venues', venuesRouter);
 // ****************************************************
 // 404 ERROR HANDLER
 //

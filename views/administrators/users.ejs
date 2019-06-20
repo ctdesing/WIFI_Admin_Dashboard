@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
+      <h3 class="heading text-dark">Users</h3>
       <!-- Add User Form -->
       <div id="user-form">
         <form action="/users" method="POST" class="form-inline justify-content-center">
@@ -18,7 +19,7 @@
           </div>
           <input type="hidden" name="url" value="<%=url%>">
           <input type="hidden" name="admin" value="false">
-          <button type="submit" class="btn btn-primary mb-2">Create</button>
+          <button type="submit" class="btn btn-info mb-2">Create</button>
         </form>
       </div>
       <!-- EOF Add User Form -->
@@ -34,19 +35,19 @@
             <input id="email" name="username" type="email" class="form-control">
           </div>
           <input type="hidden" name="url" value="<%=url%>">
-          <button type="submit" class="btn btn-primary mb-2">Update</button>
+          <button type="submit" class="btn btn-info mb-2">Update</button>
         </form>
       </div>
       <!-- EOF Edit User Form -->
       <div class="card">
-        <div class="card-header card-header-primary">
+        <div class="card-header card-header-info">
           <h4 class="card-title ">Users<span class="float-right"><i id="add-user" class="fa fa-user-plus fa-2x"></i></span></h4>
           <p class="card-category">List of Users</p>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
-              <thead class=" text-primary">
+              <thead class=" text-info">
                 <th>
                   Name
                 </th>
@@ -129,4 +130,4 @@
       });
     });
   });
-</script>      
+</script>
