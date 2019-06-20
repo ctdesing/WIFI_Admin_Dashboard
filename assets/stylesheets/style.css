@@ -27,3 +27,11 @@ a {
 	font-size: 1.2rem;
 	display: none;
 }
+.main-panel>.content{
+	margin-top: 0;
+}
+.heading{
+	margin-top: 0;
+	padding: 0;
+	margin-bottom: 5%;
+}

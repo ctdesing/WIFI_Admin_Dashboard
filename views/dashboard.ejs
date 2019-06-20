@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <h3 class="heading text-dark">Dashboard</h3>
   <% if (currentUser.isAdmin) { %>
   <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -123,7 +124,7 @@
   </div>
   <div class="row">
     <% if (currentUser.isAdmin) { %>
-    <div class="col-lg-6 col-md-12"> 
+    <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-header card-header-tabs card-header-primary">
           <div class="nav-tabs-navigation">
@@ -257,7 +258,7 @@
                             <span class="check"></span>
                           </span>
                         </label>
-                      </div>
+                      </div>https://github.com/ctdesing/Dashboard/pull/29
                     </td>
                     <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
                     </td>
@@ -421,6 +422,195 @@
     <% } %>
   </div>
 </div>
+<!-- Chartist JS -->
+<script src="/javascripts/plugins/chartist.min.js"></script>
 <script>
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+  $(document).ready(function() {
+    let hour = "",
+        values = [0, 0, 0, 0];
+    let max = 0;
+    $.get('/charts', function(data){
+        data.forEach(function(time){
+          let hour = time.start_time[11] + "" + time.start_time[12];
+          if (hour > 0 && hour < 6)
+            values[0]++;
+          else if (hour > 6 && hour < 12)
+            values[1]++;
+          else if (hour > 12 && hour < 18)
+            values[2]++;
+          else if (hour > 18 && hour < 24)
+            values[3]++;
+        });
+    }).then(function(){
+      for(let i = 0, length1 = values.length; i < length1; i++){
+        if(values[i] > max){
+          max = values[i];
+          console.log(max);
+        }
+      }
+    });
+
+
+    console.log(values);
+    console.log(max);
+
+    var seq = 0,
+      delays = 80,
+      durations = 500;
+    var seq2 = 0,
+      delays2 = 80,
+      durations2 = 500;
+
+    md = {
+
+      initDashboardPageCharts: function() {
+
+        if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+          /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+
+          dataDailySalesChart = {
+            labels: ['0', '6', '12', '18', '24'],
+            series: [
+              [ values[0], values[1], values[2], values[3], values[0] ]
+            ]
+          };
+
+          optionsDailySalesChart = {
+            lineSmooth: Chartist.Interpolation.cardinal({
+              tension: 0
+            }),
+            low: 0,
+            high: max, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            chartPadding: {
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0
+            },
+          }
+
+          var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+          md.startAnimationForLineChart(dailySalesChart);
+
+
+
+          /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+
+          dataCompletedTasksChart = {
+            labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+            series: [
+              [230, 750, 450, 300, 280, 240, 200, 190]
+            ]
+          };
+
+          optionsCompletedTasksChart = {
+            lineSmooth: Chartist.Interpolation.cardinal({
+              tension: 0
+            }),
+            low: 0,
+            high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            chartPadding: {
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0
+            }
+          }
+
+          var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+
+          // start animation for the Completed Tasks Chart - Line Chart
+          md.startAnimationForLineChart(completedTasksChart);
+
+
+          /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+
+          var dataWebsiteViewsChart = {
+            labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+            series: [
+              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+
+            ]
+          };
+          var optionsWebsiteViewsChart = {
+            axisX: {
+              showGrid: false
+            },
+            low: 0,
+            high: 1000,
+            chartPadding: {
+              top: 0,
+              right: 5,
+              bottom: 0,
+              left: 0
+            }
+          };
+          var responsiveOptions = [
+            ['screen and (max-width: 640px)', {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                }
+              }
+            }]
+          ];
+          var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+
+          //start animation for the Emails Subscription Chart
+          md.startAnimationForBarChart(websiteViewsChart);
+        }
+      },
+
+      startAnimationForLineChart: function(chart) {
+
+        chart.on('draw', function(data) {
+          if (data.type === 'line' || data.type === 'area') {
+            data.element.animate({
+              d: {
+                begin: 600,
+                dur: 700,
+                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                to: data.path.clone().stringify(),
+                easing: Chartist.Svg.Easing.easeOutQuint
+              }
+            });
+          } else if (data.type === 'point') {
+            seq++;
+            data.element.animate({
+              opacity: {
+                begin: seq * delays,
+                dur: durations,
+                from: 0,
+                to: 1,
+                easing: 'ease'
+              }
+            });
+          }
+        });
+
+        seq = 0;
+      },
+      startAnimationForBarChart: function(chart) {
+
+        chart.on('draw', function(data) {
+          if (data.type === 'bar') {
+            seq2++;
+            data.element.animate({
+              opacity: {
+                begin: seq2 * delays2,
+                dur: durations2,
+                from: 0,
+                to: 1,
+                easing: 'ease'
+              }
+            });
+          }
+        });
+
+        seq2 = 0;
+      }
+    };
+  });
 </script>

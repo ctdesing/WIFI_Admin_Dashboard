@@ -2,7 +2,8 @@ const express = require('express'),
 			passport = require('passport'),
 			{ isAuthenticated, isAuthorized } = require('../middleware/index'),
 			app = express.Router(),
-			{ index, signin, signout, trafficVolume, dataUsage, uniqueLines, venues, aps, history, historyApi, administrators, chartsApi } = require('../controllers/index');
+			{ index, signin, signout, trafficVolume, dataUsage, uniqueLines, aps, history, historyApi, administrators, chartsApi } = require('../controllers/index');
+
 
 // INDEX ROUTE
 app.get('/', index);
@@ -27,7 +28,6 @@ app.post('/history/filter', isAuthenticated, historyApi);
 //
 // ADMINISTRATORS ROUTES
 //
-app.get('/venues', isAuthenticated, isAuthorized, venues);
 app.get('/aps', isAuthenticated, isAuthorized, aps);
 app.get('/administrators', isAuthenticated, isAuthorized, administrators);
 //

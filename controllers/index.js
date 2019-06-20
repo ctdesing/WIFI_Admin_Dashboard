@@ -1,7 +1,7 @@
 const mysql = require('mysql'),
 			passport = require('passport'),
 			User = require('../models/user'),
-			{ lastSevenDays } = require('../table');
+			{ lastSevenDays, uniqueClients } = require('../table');
 
 //DATABASE CONNECTION MYSQL
 var connection = mysql.createConnection({
@@ -31,7 +31,12 @@ module.exports = {
 		}
 	},
 	chartsApi(req, res, next) {
-		//TODO
+		connection.query(uniqueClients, function(err, results){
+			if (err) next(err);
+			else {
+				res.json(results);
+			}
+		});
 	},
 	//
 	signin(req, res, next) {
@@ -73,10 +78,6 @@ module.exports = {
 	//
 	uniqueLines(req, res, next) {
 		res.render('index', {site: './users/uniquelines', title: 'Jhon Nieves'});
-	},
-	//
-	venues(req, res, next) {
-		res.render('index', {site: './administrators/venues', title: 'Jhon Nieves'});
 	},
 	//
 	aps(req, res, next) {
