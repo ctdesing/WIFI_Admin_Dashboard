@@ -1,11 +1,17 @@
-const AP = require('../models/ap');
+const AP = require('../models/ap'),
+			Venue = require('../models/venue');
 
 module.exports = {
 	index(req, res, next) {
 		AP.find({}, (err, aps) => {
 			if (err) next(err);
 			else {
-				res.render('index', {site: './administrators/aps', title: 'Jhon Nieves', aps, url: "/aps"});
+				Venue.find({}, (err1, venues) => {
+					if (err1) next(err1);
+					else {
+						res.render('index', {site: './administrators/aps', title: 'Jhon Nieves', aps, venues, url: "/aps"});
+					}
+				});
 			}
 		});
 	},
