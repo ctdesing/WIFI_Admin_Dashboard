@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <h3 class="heading text-dark">Administrators</h3>
       <!-- Add Administrator Form -->
-      <div id="user-form">
+      <div class="add-form">
         <form action="/users" method="POST" class="form-inline justify-content-center">
           <div class="form-group mb-2">
             <label>Name</label>
@@ -111,7 +111,7 @@
     let hidden = true;
     $('#add-user').click(function(e){
       if (hidden) {
-        $('#user-form').css("display", "block");
+        $('.add-form').css("display", "block");
         $('#first-input').focus();
         hidden = false;
       }
@@ -127,7 +127,7 @@
         $('#name').val(data.name);
         $('#email').val(data.email);
         $('#edit-form').attr('action', `/users/${data._id}?method=PUT`);
-        $('#user-form').css("display", "none");
+        $('.add-form').css("display", "none");
         $('#edit-section').css("display", "block");
       });
     });

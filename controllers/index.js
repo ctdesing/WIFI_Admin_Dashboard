@@ -68,18 +68,6 @@ module.exports = {
 		res.redirect('/');
 	},
 	//
-	trafficVolume(req, res, next) {
-		res.render('index', {site: './users/trafficvolume', title: 'Jhon Nieves'});
-	},
-	//
-	dataUsage(req, res, next) {
-		res.render('index', {site: './users/datausage', title: 'Jhon Nieves'});
-	},
-	//
-	uniqueLines(req, res, next) {
-		res.render('index', {site: './users/uniquelines', title: 'Jhon Nieves'});
-	},
-	//
 	aps(req, res, next) {
 		res.render('index', {site: './administrators/aps', title: 'Jhon Nieves'});
 	},
@@ -90,6 +78,7 @@ module.exports = {
 			res.render('index', {site: 'history', title: 'Jhon Nieves', results});
 		});
 	},
+	//
 	historyApi(req, res, next) {
 		const f = {
 			time: req.body.time,
@@ -150,6 +139,7 @@ module.exports = {
 			}
 		});
 	},
+	//
 	administrators(req, res, next) {
 		User.find({}, (err, users) => {
 			if (err) next(err);

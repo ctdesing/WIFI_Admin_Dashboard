@@ -1,11 +1,11 @@
 const express = require('express'),
 			{ isAuthenticated, isAuthorized } = require('../middleware/index'),
-      { index, create, show, update, destroy } = require('../controllers/venue'),
+      { index, create, show, update, destroy } = require('../controllers/ap'),
 			app = express.Router();
 
 //***************************************************
 //
-// Venues Routes
+// APS Routes
 //
 // INDEX ROUTE
 app.get('/', isAuthenticated, isAuthorized, index);

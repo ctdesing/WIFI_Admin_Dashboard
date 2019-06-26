@@ -12,12 +12,12 @@ app.get('/new', (req, res, next) => {
 // -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- -- TEMPORARY -- 
 //
 // CREATE POST
-app.post('/', create);
+app.post('/', isAuthenticated, isAuthorized, create);
 // SHOW GET
 app.get('/:id', profile);
  // UPDATE PUT
-app.put('/:id', update);
+app.put('/:id', isAuthenticated, isAuthorized, update);
 // DESTROY DELETE
-app.delete('/:id', destroy);
+app.delete('/:id', isAuthenticated, isAuthorized, destroy);
 
 module.exports = app;

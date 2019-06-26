@@ -17,11 +17,13 @@ const createError = require('http-errors'),
 			app = express();
 // MODELS - MongoDB
 const User = require('./models/user'),
-      Venue = require('./models/venue');
+      Venue = require('./models/venue'),
+      AP = require('./models/ap');
 // ROUTER
 const indexRouter = require('./routes/index'),
 			usersRouter = require('./routes/users'),
-      venuesRouter = require('./routes/venues');
+      venuesRouter = require('./routes/venues'),
+      apsRouter = require('./routes/aps');
 // ****************************************************
 // APP SETUP
 //
@@ -67,6 +69,7 @@ mongoose.connect("mongodb://dashboard:dashboard@jancxdashboard.ddns.net:4399/das
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/venues', venuesRouter);
+app.use('/aps', apsRouter);
 // ****************************************************
 // 404 ERROR HANDLER
 //

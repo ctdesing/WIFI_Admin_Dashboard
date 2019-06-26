@@ -12,7 +12,7 @@ module.exports = {
 	create(req, res, next) {
 		const newVenue = {
       venue: req.body.venue,
-      descripton: req.body.description,
+      description: req.body.description,
       city: req.body.city,
       country: req.body.country,
       networks: req.body.networks,
@@ -23,22 +23,30 @@ module.exports = {
       if (err) next(err);
       else {
         req.flash('success', 'New venue created successfully');
-        req.redirect(req.body.url);
+        res.redirect(req.body.url);
       }
     });
 	},
+	// SHOW GET	
+	show(req, res, next) {
+		 Venue.findById(req.params.id, function(err, venue) { 
+		 	if (err || !venue) next(err || "Venue not Found");
+		 	else res.json(venue);
+		 });
+	},
+	//
 	update(req, res, next) {
 		const venueNewData = {
       venue: req.body.venue,
-      descripton: req.body.description,
+      description: req.body.description,
       city: req.body.city,
       country: req.body.country,
       networks: req.body.networks,
       noofaps: req.body.noofaps,
       clients: req.body.clients
 		};
-		Venue.findByIdAndUpdate(req.params.id, venueNewData, function(err){
-			if (err) next(err);
+		Venue.findByIdAndUpdate(req.params.id, venueNewData, function(err, venue){
+			if (err || !venue) next(err || 'Venue not found');
 			else {
 				res.redirect(req.body.url);
 			}
