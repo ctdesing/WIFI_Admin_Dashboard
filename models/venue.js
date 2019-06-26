@@ -3,7 +3,7 @@ const	mongoose = require('mongoose'),
 
 const venueSchema = new Schema({
   venue: {type: String, unique: true},
-  descripton: String,
+  description: String,
   city: String,
   country: String,
   networks: Number,

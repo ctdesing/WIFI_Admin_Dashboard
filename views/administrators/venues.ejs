@@ -1,49 +1,127 @@
-<!--  -->
+<!--
+
+-->
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <h3 class="heading text-dark">Session Inventory</h3>
-      <!-- Add User Form -->
-      <div id="user-form">
-        <form action="/users" method="POST" class="form-inline justify-content-center">
-          <div class="form-group mb-2">
-            <label>Name</label>
-            <input id="first-input" name="name" type="text" class="form-control">
+      <h3 class="heading text-dark">Venues</h3>
+      <!-- Add Venue Form -->
+      <div class="add-form">
+        <form action="/venues" method="POST" class="justify-content-center">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Venue name</label>
+                <input id="first-input" name="venue" type="text" class="form-control" autofocus required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Description</label>
+                <input name="description" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>City</label>
+                <input name="city" type="text" class="form-control" required>
+              </div>
+            </div>
           </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label>Email</label>
-            <input name="username" type="email" class="form-control">
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label>Password</label>
-            <input name="password" type="password" class="form-control">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Country</label>
+                <input name="country" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Networks</label>
+                <input name="networks" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>No. of Aps</label>
+                <input name="noofaps" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Clients</label>
+                <input name="clients" type="text" class="form-control" required>
+              </div>
+            </div>
           </div>
           <input type="hidden" name="url" value="<%=url%>">
-          <input type="hidden" name="admin" value="false">
-          <button type="submit" class="btn btn-info mb-2">Create</button>
+          <button type="submit" class="btn btn-info mb-5 float-right">Add</button>
         </form>
       </div>
-      <!-- EOF Add User Form -->
-      <!-- Edit User Form -->
+
+      <!-- EOF Add Venue Form -->
+      <!-- Edit Venue Form -->
       <div id="edit-section">
-        <form id="edit-form" action="/users" method="POST" class="form-inline justify-content-center">
-          <div class="form-group mb-2">
-            <label>Name</label>
-            <input id="name" name="name" type="text" class="form-control">
+        <form id="edit-form" action="/venues" method="POST" class="justify-content-center">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Venue name</label>
+                <input id="name" name="venue" type="text" class="form-control" autofocus required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Description</label>
+                <input id="description" name="description" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>City</label>
+                <input id="city" name="city" type="text" class="form-control" required>
+              </div>
+            </div>
           </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label>Email</label>
-            <input id="email" name="username" type="email" class="form-control">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Country</label>
+                <input id="country" name="country" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Networks</label>
+                <input id="networks" name="networks" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>No. of Aps</label>
+                <input id="noofaps" name="noofaps" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Clients</label>
+                <input id="clients" name="clients" type="text" class="form-control" required>
+              </div>
+            </div>
           </div>
           <input type="hidden" name="url" value="<%=url%>">
-          <button type="submit" class="btn btn-info mb-2">Update</button>
+          <button type="submit" class="btn btn-info mb-5 float-right">Save</button>
         </form>
       </div>
       <!-- EOF Edit User Form -->
       <div class="card">
         <div class="card-header card-header-info">
-          <h4 class="card-title ">Session Inventory</h4>
+          <h4 class="card-title ">Session Inventory <button type="button" id="add-venue" class="btn btn-info float-right">Add Venue</button></h4>
           <p class="card-category">History</p>
         </div>
         <div class="card-body">
@@ -97,6 +175,22 @@
                   <td>
                     <%= venue.clients %>
                   </td>
+                  
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item edit-user">Edit<span class="user-id"><%= venue._id %></span></a>
+                        <div class="dropdown-divider"></div>
+                        <form action="/venues/<%= venue._id %>?method=DELETE" method="POST">
+                          <input type="hidden" name="url" value="<%=url%>">
+                          <button class="dropdown-item">DELETE</button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
                 <% }); -%>
               </tbody>
@@ -116,18 +210,36 @@
       else
         link.classList.remove('active');
     });
-    
+
     let hidden = true;
-    $('#add-user').click(function(e){
+    $('#add-venue').click(function(e){
       if (hidden) {
-        $('#user-form').css("display", "block");
+        $('.add-form').css("display", "block");
         $('#first-input').focus();
         hidden = false;
       }
       else {
-        $('#user-form').css("display", "none");
+        $('.add-form').css("display", "none");
         hidden = true;
       }
     });
+
+    // edit venue form
+    $('.dropdown-menu>a.edit-user').click(function(e){
+      let venueId = $(this).children().text();
+      $.get(`/venues/${venueId}`, function(venue){
+        $('#name').val(venue.venue);
+        $('#description').val(venue.description);
+        $('#city').val(venue.city);
+        $('#country').val(venue.country);
+        $('#networks').val(venue.networks);
+        $('#noofaps').val(venue.noofaps);
+        $('#clients').val(venue.clients);
+        $('#edit-form').attr('action', `/venues/${venue._id}?method=PUT`);
+        $('.add-form').css("display", "none");
+        $('#edit-section').css("display", "block");
+      });
+    });
+
   });
 </script>

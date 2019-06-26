@@ -1,3 +1,189 @@
+<!--
+
+-->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="heading text-dark">Venues</h3>
+      <!-- Add AP Form -->
+      <div class="add-form">
+        <form action="/aps" method="POST" class="justify-content-center">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>AP Name</label>
+                <input id="first-input" name="name" type="text" class="form-control" autofocus required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Status</label>
+                <input name="status" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Model</label>
+                <input name="model" type="text" class="form-control" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>IP Address</label>
+                <input name="ipaddress" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>MAC Address</label>
+                <input name="macaddress" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Venue</label>
+                <input name="venue" type="text" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <button type="submit" class="btn btn-info mb-5 float-right">Add</button>
+        </form>
+      </div>
+
+      <!-- EOF Add Venue Form -->
+      <!-- Edit Venue Form -->
+      <div id="edit-section">
+        <form id="edit-form" action="/aps" method="POST" class="justify-content-center">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>AP Name</label>
+                <input id="name" name="name" type="text" class="form-control" autofocus required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Status</label>
+                <input id="status" name="status" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Model</label>
+                <input id="model" name="model" type="text" class="form-control" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>IP Address</label>
+                <input id="ipaddress" name="ipaddress" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>MAC Address</label>
+                <input id="macaddress" name="macaddress" type="text" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Venue</label>
+                <input id="venue" name="venue" type="text" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="url" value="<%=url%>">
+          <button type="submit" class="btn btn-info mb-5 float-right">Save</button>
+        </form>
+      </div>
+      <!-- EOF Edit User Form -->
+      <div class="card">
+        <div class="card-header card-header-info">
+          <h4 class="card-title ">Session Inventory <button type="button" id="add-venue" class="btn btn-info float-right">Add AP</button></h4>
+          <p class="card-category">History</p>
+        </div>
+        <div class="card-body">
+          <!--  -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-info">
+                <th>
+                  AP Name
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                  Model
+                </th>
+                <th>
+                  IP Address
+                </th>
+                <th>
+                  MAC Address
+                </th>
+                <th>
+                  Venue
+                </th>
+              </thead>
+              <tbody id="table-body">
+                <% aps.forEach(function(ap){ -%>
+                <tr>
+                  <td>
+                    <%= ap.name %>
+                  </td>
+                  <td>
+                    <%= ap.status %>
+                  </td>
+                  <td>
+                    <%= ap.model %>
+                  </td>
+                  <td>
+                    <%= ap.ipaddress %>
+                  </td>
+                  <td>
+                    <%= ap.macaddress %>
+                  </td>
+                  <td>
+                    <%= ap.venue %>
+                  </td>
+                  
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item edit-user">Edit<span class="user-id"><%= ap._id %></span></a>
+                        <div class="dropdown-divider"></div>
+                        <form action="/aps/<%= ap._id %>?method=DELETE" method="POST">
+                          <input type="hidden" name="url" value="<%=url%>">
+                          <button class="dropdown-item">DELETE</button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <% }); -%>
+              </tbody>
+            </table>
+            <div id="display" class="text-warning" role="alert"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   $( document ).ready(function() {
     document.querySelectorAll('.nav-list').forEach(function(link){
@@ -6,5 +192,37 @@
       else
         link.classList.remove('active');
     });
+
+
+    let hidden = true;
+    $('#add-venue').click(function(e){
+      if (hidden) {
+        $('.add-form').css("display", "block");
+        $('#first-input').focus();
+        hidden = false;
+      }
+      else {
+        $('.add-form').css("display", "none");
+        hidden = true;
+      }
+    });
+
+    // edit venue form
+    $('.dropdown-menu>a.edit-user').click(function(e){
+      let apId = $(this).children().text();
+      $.get(`/aps/${apId}`, function(ap){
+        $('#name').val(ap.name);
+        $('#status').val(ap.status);
+        $('#model').val(ap.model);
+        $('#ipaddress').val(ap.ipaddress);
+        $('#macaddress').val(ap.macaddress);
+        $('#venue').val(ap.venue);
+        $('#edit-form').attr('action', `/aps/${ap._id}?method=PUT`);
+        $('.add-form').css("display", "none");
+        $('#edit-section').css("display", "block");
+      });
+    });
+
+
   });
 </script>
