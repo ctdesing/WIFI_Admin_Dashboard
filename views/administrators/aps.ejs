@@ -47,7 +47,11 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <label>Venue</label>
-                <input name="venue" type="text" class="form-control" required>
+                <select name="venue" class="form-control">
+                  <% venues.forEach(function(venue){ -%>
+                  <option value="<%= venue.venue %>"><%= venue.venue %></option>
+                  <% }) -%>
+                </select>
               </div>
             </div>
           </div>
@@ -98,7 +102,11 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <label>Venue</label>
-                <input id="venue" name="venue" type="text" class="form-control" required>
+                <select name="venue" id="venue" class="form-control">
+                  <% venues.forEach(function(venue){ -%>
+                  <option value="<%= venue.venue %>"><%= venue.venue %></option>
+                  <% }) -%>
+                </select>
               </div>
             </div>
           </div>
