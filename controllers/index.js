@@ -114,10 +114,11 @@ module.exports = {
 		connection.query(queryStringBuilder, function(err, results){
 		 	if(err) next(err);
 			else {
-				console.log(results);
+				console.log(f.filter);
 				if(f.filter.length > 0){
 					console.log('=============================================');
 					if(f.filter.length == 17){
+						console.log("filter pass length");
 						let result = [];
 						results.forEach(function(user){
 							let mac = user.client_mac.replace(/\s/g, "");
@@ -125,8 +126,7 @@ module.exports = {
 								result.push(user);
 							}
 						});
-						console.log(result);
-						res.json(results);
+						res.json(result);
 					}
 					else {
 						req.flash('error', 'MAC Address suplied is invalid, please try again!');
